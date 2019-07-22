@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<h1>Cars</h1>
+	<ul>
+		<% for(let i = 0; i < cars.length; i++){ %>
+			<li>
+			   <a href="/cars/<%=cars[i]._id%>"><%cars[i].make; %></a>, <%cars[i].model; %> from the year <%cars[i].year;%> is being sold for <%cars[i].price;%> dollars.
+
+			</li>
+		<%}%>
+	</ul>
+
+</body>
+</html>
+
+model year price
