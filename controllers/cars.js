@@ -22,11 +22,71 @@ router.get('/', (req, res) => {
 	});
 });
 
+//listens for post requests to add car
+router.post('/', (req, res) => {
+	console.log(req.body, "<--- content of form");
+	Car.create(req.body, (error, addCar) => {
+		console.log(addCar, "<-- post route cars, addedCar")
+		if(error){
+			res.send(error)
+			} else {
+				res.redirect('/cars')
+		}
+	});
+});
+
+//new - send car
+router.get('/new', (req, res) => {
+	res.render('new.ejs')
+});
 
 
 
+//show params inside routing docs in express
+//localhost:3000/cars/0
+router.get('/:id', (req, res) => {
+	console.log(req.params, "<-- req.params");
+	console.log('/cars/:id')
+	Car.findById(req.params.id, (err, car) => {
+			if(err) {
+				res.send(err);
+			} else {
+				res.render('show.ejs', {
+					car: car
+			});
+		}
+	});
+});
+
+//edit the list
+router.get('/:id/edit', (req, res) => {
+  Car.findById(req.params.id, (err, car) => {
+    if(err){
+      console.log(err);
+    }else {
+      res.render('edit.ejs', {
+        car: car
+      })
+    }
+  })
+});
+
+router.put('/:id', (req, res) => {
+  console.log(req.body, ' in put route')
+  console.log('/cars/:id')
+})
 
 
+//delete
+router.delete('/:id', (req, res) => {
+	Car.findOneAndDelete(req.params.id, (err, deleteCar) => {
+		if(err){
+			res.send(err);
+		} else {
+		res.redirect('/cars');
+		};
+	});
+});
 
 
 module.exports = router;
