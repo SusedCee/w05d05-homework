@@ -60,26 +60,37 @@ router.get('/:id', (req, res) => {
 
 //edit the list
 router.get('/:id/edit', (req, res) => {
-  Car.findById(req.params.id, (err, car) => {
+  Car.findById(req.params.id, (err, foundCar) => {
     if(err){
       console.log(err);
     }else {
+      console.log(foundCar, "<--- edit route, document from mongodb")
       res.render('edit.ejs', {
-        car: car
-      })
-    }
-  })
+        car: foundCar
+      });
+    };
+  });
 });
 
-router.put('/:id', (req, res) => {
+//PUT the edited car in the list of all cars (all cars show page)
+router.put('./cars/:id', (req, res) => {
   console.log(req.body, ' in put route')
   console.log('/cars/:id')
-})
+
+  Car.findByIdAndUpdate(req.params.id, req.body, (err, updatedCar) => {
+  	if(err){
+  		res.send(err);
+  	} else {
+  		console.log(updatedCar)
+  		res.redirect('/cars');
+  	};
+  });
+});
 
 
 //delete
 router.delete('/:id', (req, res) => {
-	Car.findOneAndDelete(req.params.id, (err, deleteCar) => {
+	Car.findByIdAndDelete(req.params.id, (err, deleteCar) => {
 		if(err){
 			res.send(err);
 		} else {
