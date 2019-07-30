@@ -8,7 +8,7 @@
     <body>
         <h1>Update Car</h1>
         <!--  NOTE: action will be the route, method will be the HTTP verb-->
-        <form action="/cars" method="POST">
+        <form action="/cars/<%=car._id%>?_method=PUT" method="POST">
             Make: <input type="text" name="make" value="<%=car.make%>"/><br/>
             Model: <input type="text" name="model" value="<%=car.model%>" /><br/>
             Year: <input type="number" name="year" value="<%=car.year%>"/><br/>

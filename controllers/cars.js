@@ -73,9 +73,9 @@ router.get('/:id/edit', (req, res) => {
 });
 
 //PUT the edited car in the list of all cars (all cars show page)
-router.put('./cars/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   console.log(req.body, ' in put route')
-  console.log('/cars/:id')
+  console.log('/:id')
 
   Car.findByIdAndUpdate(req.params.id, req.body, (err, updatedCar) => {
   	if(err){
